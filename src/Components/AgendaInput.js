@@ -29,7 +29,7 @@ const [addedAgenda, setAddedAgenda] = useState([]);
 
 
 
-      const onSubmit = (data) => {
+      const onSubmit = (data,e) => {
         const allData ={
             Title:data.Title,
             Description:data.Description,
@@ -51,7 +51,7 @@ const [addedAgenda, setAddedAgenda] = useState([]);
             console.log(result);
           });
        
-     
+          e.target.reset();
       };
 
 
