@@ -1,9 +1,14 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from "react-hook-form";
+import DatePicker from './DatePicker';
 
 
-function AgendaInput(props) {
+
+ const AgendaInput=()=> {
+   
+ 
+
     const {
         register,
         handleSubmit,
@@ -16,8 +21,10 @@ function AgendaInput(props) {
       };
 
 
+     
+
     return (
-        <div>
+        <>
   
 
 
@@ -56,16 +63,17 @@ function AgendaInput(props) {
           <textarea
            {...register("Description", {
             required: true,
-            maxLength: 200,
+       
         
           })}
           class="textarea textarea-bordered" placeholder="Description" ></textarea>
-          {errors?.Description?.type === "required" && <p className='text-red-500 mt-3 text-left'>This field is required</p>}
-      {errors?.Description?.type === "maxLength" && (
-        <p>First name cannot exceed 20 characters</p>
-        )}
-      
+          {errors?.Description?.type === "required" && <p className='text-red-500 mt-3 text-left'>This field is required</p>}     
         </div>
+<div class="w-96">
+<DatePicker/>
+</div>
+
+
         <div class="form-control mt-6">
           <button class="btn btn-primary">Save</button>
         </div>
@@ -78,7 +86,7 @@ function AgendaInput(props) {
 
 
 
-        </div>
+        </>
     );
 }
 
