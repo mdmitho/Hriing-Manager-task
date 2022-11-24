@@ -1,13 +1,36 @@
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from "react-hook-form";
-import DatePicker from './DatePicker';
+import { DayPicker } from 'react-day-picker';
+import { format } from 'date-fns';
+import 'react-day-picker/dist/style.css';
+import AgendaList from './AgendaList';
 
 
 
  const AgendaInput=()=> {
-   
- 
+  
+const [agendaList, setAgendaList]= useState()
+console.log(agendaList)
+const [addedAgenda, setAddedAgenda] = useState([]);
+
+    const [selectedDay, setSelectedDay] = useState(new Date());
+
+    useEffect(() => {
+        fetch("http://localhost:5000/AgendaList")
+          .then((res) => res.json())
+          .then((data) => setAgendaList(data));
+      }, []);
+
+
+
+
+
+    const footer = selectedDay ? (
+      <p>You selected {format(selectedDay, 'PP')}.</p>
+    ) : (
+      <p>Please pick a day.</p>
+    );
 
     const {
         register,
@@ -17,7 +40,9 @@ import DatePicker from './DatePicker';
       } = useForm();
 
       const onSubmit = (data) => {
-        alert(JSON.stringify(data));
+        // alert(JSON.stringify(data));
+        setAgendaList(data,)
+        
       };
 
 
@@ -29,8 +54,48 @@ import DatePicker from './DatePicker';
 
 
 <div class="hero  bg-base-200">
-  <div class="hero-content ">
+  <div class="hero-content flex-col lg:flex-row-reverse">
+  <div className="text-center lg:text-left">
+
+
+
+  <table class="table w-full">
+    {/* <!-- head --> */}
+    <thead>
+      <tr>
+       
+        <th>Name</th>
+        <th>Job</th>
+        <th>Favorite Color</th>
+      </tr>
+    </thead>
+   <tbody>
+   {
+    agendaList?.map((agenda,index)=>(
+       <tr>
+{/* <th>{index + 1}</th> */}
+<td>{agenda.Title}</td>
+<td>{agenda.Description}</td>
+<td>{agenda.Description}</td>
+       </tr>
+        
+    ))
+}
+   </tbody>
+  </table>
+
+  
+
+
+
+
+ 
    
+
+
+
+    
+    </div>
     <div class="card flex-shrink-0 w-96 shadow-2xl bg-base-100">
       <div class="card-body">
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -70,7 +135,13 @@ import DatePicker from './DatePicker';
           {errors?.Description?.type === "required" && <p className='text-red-500 mt-3 text-left'>This field is required</p>}     
         </div>
 <div class="w-96">
-<DatePicker/>
+<DayPicker
+
+      mode="single"
+      selected={selectedDay}
+      onSelect={setAgendaList}
+      footer={footer}
+    />
 </div>
 
 
