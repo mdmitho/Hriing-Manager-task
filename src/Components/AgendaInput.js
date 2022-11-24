@@ -9,29 +9,17 @@ import AgendaList from './AgendaList';
 
 
  const AgendaInput=()=> {
-  
-const [agendaList, setAgendaList]= useState()
-console.log(agendaList)
+   
+
 const [addedAgenda, setAddedAgenda] = useState([]);
 
     const [selectedDay, setSelectedDay] = useState(new Date());
-
-    useEffect(() => {
-        fetch("http://localhost:5000/AgendaList")
-          .then((res) => res.json())
-          .then((data) => setAgendaList(data));
-      }, []);
-
-
-
-
-
+ 
     const footer = selectedDay ? (
-      <p>You selected {format(selectedDay, 'PP')}.</p>
+      <p>{format(selectedDay, 'PP')}</p>
     ) : (
-      <p>Please pick a day.</p>
+      <></>
     );
-
     const {
         register,
         handleSubmit,
@@ -39,10 +27,31 @@ const [addedAgenda, setAddedAgenda] = useState([]);
         formState: { errors }
       } = useForm();
 
+
+
       const onSubmit = (data) => {
-        // alert(JSON.stringify(data));
-        setAgendaList(data,)
+        const allData ={
+            Title:data.Title,
+            Description:data.Description,
+            selectedDay:footer.props.children,
+        }
         
+        // setAddedAgenda(data,selectedDay)
+        const url = `http://localhost:5000/AddAgendaList`;
+        console.log(url);
+        fetch(url, {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(allData),
+        })
+          .then((res) => res.json())
+          .then((result) => {
+            console.log(result);
+          });
+       
+     
       };
 
 
@@ -57,43 +66,7 @@ const [addedAgenda, setAddedAgenda] = useState([]);
   <div class="hero-content flex-col lg:flex-row-reverse">
   <div className="text-center lg:text-left">
 
-
-
-  <table class="table w-full">
-    {/* <!-- head --> */}
-    <thead>
-      <tr>
-       
-        <th>Name</th>
-        <th>Job</th>
-        <th>Favorite Color</th>
-      </tr>
-    </thead>
-   <tbody>
-   {
-    agendaList?.map((agenda,index)=>(
-       <tr>
-{/* <th>{index + 1}</th> */}
-<td>{agenda.Title}</td>
-<td>{agenda.Description}</td>
-<td>{agenda.Description}</td>
-       </tr>
-        
-    ))
-}
-   </tbody>
-  </table>
-
-  
-
-
-
-
- 
-   
-
-
-
+<AgendaList/>
     
     </div>
     <div class="card flex-shrink-0 w-96 shadow-2xl bg-base-100">
@@ -139,9 +112,12 @@ const [addedAgenda, setAddedAgenda] = useState([]);
 
       mode="single"
       selected={selectedDay}
-      onSelect={setAgendaList}
+      onSelect={setSelectedDay}
       footer={footer}
     />
+
+
+
 </div>
 
 

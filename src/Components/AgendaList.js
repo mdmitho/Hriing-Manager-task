@@ -1,25 +1,44 @@
-const AgendaList =({agenda})=>{
-const{Title, Description}=agenda
+import { useEffect, useState } from "react";
 
-    console.log(agenda)
+const AgendaList =()=>{
+
+const [agendaList, setAgendaList]= useState()
+
+
+
+useEffect(() => {
+    fetch("http://localhost:5000/AgendaList")
+      .then((res) => res.json())
+      .then((data) => setAgendaList(data));
+  }, []);
+
     return( <>
         
-        <div class="overflow-x-auto">
+        
   <table class="table w-full">
     {/* <!-- head --> */}
-  
-    <tbody className="">
-     
-      <tr >
+    <thead>
+      <tr>
        
-        <td>{Title}</td>
-        <td>{Description}</td>
-        <td>Blue</td>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Date</th>
       </tr>
-    
-    </tbody>
+    </thead>
+   <tbody>
+   {
+    agendaList?.map((agenda)=>(
+       <tr>
+{/* <th>{index + 1}</th> */}
+<td>{agenda.Title}</td>
+<td>{agenda.Description}</td>
+<td>{agenda.Description}</td>
+       </tr>
+        
+    ))
+}
+   </tbody>
   </table>
-</div>
 
 
         </>
