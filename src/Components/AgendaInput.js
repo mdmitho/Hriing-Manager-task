@@ -34,7 +34,7 @@ import AgendaList from './AgendaList';
         }
         
         // setAddedAgenda(data,selectedDay)
-        const url = `http://localhost:5000/AddAgendaList`;
+        const url = `https://nameless-lake-27327.herokuapp.com/AddAgendaList`;
         console.log(url);
         fetch(url, {
           method: "POST",

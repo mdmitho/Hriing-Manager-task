@@ -7,7 +7,7 @@ const [agendaList, setAgendaList]= useState()
 
 
 useEffect(() => {
-    fetch("http://localhost:5000/AddAgendaList")
+    fetch("https://nameless-lake-27327.herokuapp.com/AddAgendaList")
       .then((res) => res.json())
       .then((data) => setAgendaList(data));
   }, []);
@@ -22,7 +22,7 @@ const DeleteBtn = (id) => {
   console.log(id)
   const proceed = window.confirm("Are you sure you want to delete");
   if (proceed) {
-    const url = `http://localhost:5000/agenda/${id}`;
+    const url = `https://nameless-lake-27327.herokuapp.com/agenda/${id}`;
     fetch(url, {
       method: "DELETE",
     })
