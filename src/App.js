@@ -6,7 +6,7 @@ function App() {
   return (
     <>
     <div className="App">
-       <h1 className="text-3xl font-bold  mt-5">
+       <h1 className="text-3xl my-5 font-bold  mt-5">
       Hiring Manager Task
     </h1>
       

@@ -49,7 +49,7 @@ import AgendaList from './AgendaList';
           });
        
           e.target.reset();
-          setTimeout("location.reload(true);", 1000)
+          setTimeout("location.reload(true);", 500)
       };
 
 
@@ -60,7 +60,7 @@ import AgendaList from './AgendaList';
   
 
 
-<div class="hero  bg-base-200">
+<div class="hero min-h-screen bg-base-200">
   <div class="hero-content flex-col lg:flex-row-reverse">
   <div className="text-center lg:text-left">
 
