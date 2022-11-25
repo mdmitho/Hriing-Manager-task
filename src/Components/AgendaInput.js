@@ -9,9 +9,6 @@ import AgendaList from './AgendaList';
 
 
  const AgendaInput=()=> {
-   
-
-const [addedAgenda, setAddedAgenda] = useState([]);
 
     const [selectedDay, setSelectedDay] = useState(new Date());
  
@@ -52,6 +49,7 @@ const [addedAgenda, setAddedAgenda] = useState([]);
           });
        
           e.target.reset();
+          setTimeout("location.reload(true);", 1000)
       };
 
 

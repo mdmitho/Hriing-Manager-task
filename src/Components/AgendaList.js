@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
+import AgendaListDisplay from "./AgendaLIstDisplay";
 
 const AgendaList =()=>{
 
 const [agendaList, setAgendaList]= useState()
 
-console.log(agendaList)
 
 useEffect(() => {
     fetch("http://localhost:5000/AddAgendaList")
@@ -18,29 +18,23 @@ useEffect(() => {
 // deleted api
 
 const DeleteBtn = (id) => {
+
+  console.log(id)
   const proceed = window.confirm("Are you sure you want to delete");
   if (proceed) {
-    const url = `http://localhost:5000/AddAgendaList${id}`;
+    const url = `http://localhost:5000/agenda/${id}`;
     fetch(url, {
       method: "DELETE",
     })
       .then((res) => res.json())
       .then((data) => {
         console.log("sucess", data);
-        const remaing = agendaList.filter((List) => List._id !== id);
+        const remaing = agendaList.filter((item) => item._id !== id) ;
+
         setAgendaList(remaing);
       });
   }
 };
-
-
-
-
-
-
-
-
-
 
     return( <>
         
@@ -60,16 +54,7 @@ const DeleteBtn = (id) => {
    {
     agendaList?.map((agenda)=>(
     
-       <tr>
-
-{/* <td><p>  console.log(agenda._id)</p></td> */}
-<td>{agenda.Title}</td>
-<td>{agenda.Description}</td>
-<td>{agenda.selectedDay}</td>
-<td><button 
-onClick={() => DeleteBtn(agenda._id)}
-class="btn btn-error">Delete</button></td>
-       </tr>
+   <AgendaListDisplay DeleteBtn={DeleteBtn} key={agenda._id} agenda={agenda}></AgendaListDisplay>
         
     ))
 }
